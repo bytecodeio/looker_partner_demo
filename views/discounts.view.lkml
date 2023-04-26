@@ -35,6 +35,7 @@ view: discounts {
   }
 
   dimension: discount_amount {
+    description: "The amount of the discount"
     type: number
     sql: ${TABLE}.discount_amount ;;
   }
