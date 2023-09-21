@@ -25,6 +25,11 @@ view: order_items {
     sql: ${TABLE}.user_id ;;
   }
 
+  measure: distinct_users {
+    type: count_distinct
+    sql: ${user_id} ;;
+  }
+
   measure: count {
     label: "Count"
     type: count

@@ -83,6 +83,7 @@ view: inventory_items {
   }
 
   dimension: davids_dimension {
+    description: "Created temporarily for Tableau demo"
     type: string
     sql: "hello" ;;
   }
