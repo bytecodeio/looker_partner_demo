@@ -82,7 +82,14 @@ view: inventory_items {
     sql: ${TABLE}.product_distribution_center_id ;;
   }
 
+  dimension: davids_dimension {
+    type: string
+    sql: "hello" ;;
+  }
+
   ## MEASURES ##
+
+
 
   measure: sold_count {
     label: "Sold Count"
