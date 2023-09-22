@@ -344,6 +344,8 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+
+
 ########## Return Information ##########
 
   dimension: is_returned {
@@ -380,6 +382,7 @@ view: order_items {
     value_format_name: percent_2
     sql: 1.0 * ${returned_count} / nullif(${count},0) ;;
   }
+
 
 
 ########## Repeat Purchase Facts ##########

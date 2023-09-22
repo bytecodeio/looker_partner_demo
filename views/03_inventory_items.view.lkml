@@ -17,6 +17,11 @@ view: inventory_items {
     sql: ${TABLE}.cost ;;
   }
 
+  measure: avg_cost_inventory {
+    type: average
+    sql: ${cost} ;;
+  }
+
   dimension_group: created {
     label: "Created"
     type: time
