@@ -1,11 +1,12 @@
 connection: "looker_partner_demo"
 label: " eCommerce"
 include: "/queries/queries*.view" # includes all queries refinements
-include: "/views/**/*.view" # include all the views
+#include: "/views/**/*.view" # include all the views
 include: "/dashboards/*.dashboard.lookml" # include all the views
 
 
 include: "/explores/multiple_opperations.lkml"
+include: "/explores/nw_test_explore.explore.lkml"
 
 ############ Model Configuration #############
 
@@ -14,9 +15,9 @@ datagroup: ecommerce_etl {
   max_cache_age: "24 hours"
 }
 
+
 persist_with: ecommerce_etl
 ############ Base Explores #############
-
 explore: order_items {
   label: "(1) Orders, Items and Users"
   view_name: order_items
@@ -372,3 +373,5 @@ explore: ecomm_predict {
     sql_on: ${order_facts.order_id} = ${order_items.order_id} ;;
   }
 }
+
+#week_start_day: {{ _user_attributes['nikoli_week_start_day'] }}
