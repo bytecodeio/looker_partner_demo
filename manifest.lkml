@@ -5,8 +5,8 @@ localization_settings: {
   localization_level: permissive
 }
 
-# visualization: {
-#   id: "custom_viz_dev_jng"
-#   label: "Custom Viz Dev JNg"
-#   file: "bundle.js"
-# }
+visualization: {
+  id: "custom_viz_dev_jng"
+  label: "Custom Viz Dev JNg"
+  file: "bundle.js"
+}
