@@ -102,6 +102,12 @@ view: inventory_items {
     sql: 1.0 * ${sold_count}/(CASE WHEN ${count} = 0 THEN NULL ELSE ${count} END) ;;
   }
 
+  measure: sold_percent_0 {
+    type: number
+    sql: 1.0 * ${sold_count}/(CASE WHEN ${count} = 0 THEN NULL ELSE ${count} END) ;;
+    value_format_name: percent_0
+  }
+
   measure: total_cost {
     label: "Total Cost"
     type: sum
