@@ -49,6 +49,23 @@ view: users {
     sql: ${age} ;;
   }
 
+  parameter: age_tier_parameter {
+    type: unquoted
+    allowed_value: {
+      label: "15"
+      value: "15"
+    }
+    allowed_value: {
+      label: "25"
+      value: "25"
+    }
+    allowed_value: {
+      label: "35"
+      value: "35"
+    }
+    default_value: "15"
+  }
+
   dimension: gender {
     label: "Gender"
     sql: ${TABLE}.gender ;;
