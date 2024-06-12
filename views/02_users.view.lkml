@@ -69,7 +69,7 @@ view: users {
 
   dimension: gender {
     label: "Gender"
-    sql: CASE WHEN ${TABLE}.gender = 'F' THEN 'Female' ELSE 'Male' ;;
+    sql: CASE WHEN ${TABLE}.gender = 'F' THEN 'Female' ELSE 'Male' END;;
   }
 
   dimension: gender_short {
