@@ -1,5 +1,6 @@
 view: users {
-  sql_table_name: looker-private-demo.ecomm.users ;;
+  sql_table_name: looker-partners.thelook.users ;;
+  # sql_table_name: looker-private-demo.ecomm.users ;;
   view_label: "Users"
   ## Demographics ##
 
