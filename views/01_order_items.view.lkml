@@ -286,7 +286,7 @@ view: order_items {
   measure: total_sale_price {
     label: "Total Sale Price"
     type: sum
-    value_format_name: usd
+    value_format: "[>=1000000]$0.0,,\"M\";[>=1000]$0.0,\"K\";$0"
     sql: ${sale_price} ;;
     drill_fields: [detail*]
   }

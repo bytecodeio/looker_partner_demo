@@ -1,5 +1,6 @@
 view: users {
-  sql_table_name: looker-private-demo.ecomm.users ;;
+  sql_table_name: looker-partners.thelook.users ;;
+  # sql_table_name: looker-private-demo.ecomm.users ;;
   view_label: "Users"
   ## Demographics ##
 
@@ -47,14 +48,31 @@ view: users {
   dimension: age_tier {
     label: "Age Tier"
     type: tier
-    tiers: [0, 10, 20, 30, 40, 50, 60, 70]
+    tiers: [15, 25, 35, 50, 65]
     style: integer
     sql: ${age} ;;
   }
 
+  parameter: age_tier_parameter {
+    type: unquoted
+    allowed_value: {
+      label: "15"
+      value: "15"
+    }
+    allowed_value: {
+      label: "25"
+      value: "25"
+    }
+    allowed_value: {
+      label: "35"
+      value: "35"
+    }
+    default_value: "15"
+  }
+
   dimension: gender {
     label: "Gender"
-    sql: ${TABLE}.gender ;;
+    sql: CASE WHEN ${TABLE}.gender = 'F' THEN 'Female' ELSE 'Male' END;;
   }
 
   dimension: gender_short {
@@ -189,9 +207,36 @@ view: users {
   dimension_group: created {
     label: "Created"
     type: time
-#     timeframes: [time, date, week, month, raw]
+     timeframes: [time, date, week, month, raw]
     sql: ${TABLE}.created_at ;;
   }
+
+  dimension_group: since_created {
+    type: duration
+    intervals: [month,day]
+    sql_start: ${created_date} ;;
+    sql_end: current_date() ;;
+  }
+
+  dimension: since_created_month_tiers{
+    type: tier
+    tiers: [3,6,9,12,24]
+    style: integer
+    sql: ${months_since_created} ;;
+  }
+
+  dimension: since_created_day_tiers {
+    type: tier
+    tiers: [7,14,30,90,180]
+    style: integer
+    sql: ${days_since_created} ;;
+  }
+
+  dimension: is_new_cust {
+    type: yesno
+    sql: ${created_date} >= DATE_ADD(CURRENT_DATE(), INTERVAL -90 DAY) ;;
+  }
+
 
   dimension: history {
     label: "History"
@@ -227,12 +272,6 @@ view: users {
 
   ## MEASURES ##
 
-  measure: count {
-    label: "Count"
-    type: count
-    drill_fields: [detail*]
-  }
-
   measure: count_percent_of_total {
     label: "Count (Percent of Total)"
     type: percent_of_total
@@ -247,6 +286,43 @@ view: users {
     sql: ${age} ;;
     drill_fields: [detail*]
   }
+
+  measure: median_age {
+    label: "Median Age"
+    type: median
+    value_format_name: decimal_2
+    sql: ${age} ;;
+    drill_fields: [detail*]
+  }
+
+
+  measure: count {
+    # label: "Number of Customers"
+    type: count
+    drill_fields: [id, last_name, first_name, events.count, order_items.count, order_items.total_sale_price]
+  }
+
+  measure: cumulative_users {
+    label: "Number of Cumulative Customers"
+    type: running_total
+    sql: ${count} ;;
+  }
+
+  measure: average_days_since_created {
+    type: average
+    sql: ${days_since_created} ;;
+  }
+
+  measure: median_days_since_created {
+    type: median
+    sql: ${days_since_created} ;;
+  }
+
+  measure: average_months_since_createed {
+    type: average
+    sql: ${months_since_created} ;;
+  }
+  # }
 
   set: detail {
     fields: [id, name, email, age, created_date, orders.count, order_items.count]
