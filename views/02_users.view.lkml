@@ -27,7 +27,10 @@ view: users {
 
   dimension: name {
     label: "Name"
+    suggest_persist_for: "5 seconds"
+    bypass_suggest_restrictions: yes
     sql: concat(${first_name}, ' ', ${last_name}) ;;
+
   }
 
   dimension: age {
