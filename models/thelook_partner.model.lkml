@@ -20,6 +20,10 @@ persist_with: ecommerce_etl
 explore: order_items {
   label: "(1) Orders, Items and Users"
   view_name: order_items
+  access_filter: {
+    field: inventory_items.product_distribution_center_id
+    user_attribute: distribution_centers
+  }
 
   join: order_facts {
     type: left_outer

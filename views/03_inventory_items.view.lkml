@@ -90,6 +90,7 @@ view: inventory_items {
 
   dimension: product_distribution_center_id {
     label: "Product Distribution Center ID"
+    type: number
     hidden: yes
     sql: ${TABLE}.product_distribution_center_id ;;
   }
