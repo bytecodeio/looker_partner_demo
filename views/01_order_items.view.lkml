@@ -5,6 +5,7 @@ view: order_items {
 
   dimension: id {
     label: "ID"
+    description: "Test description"
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;

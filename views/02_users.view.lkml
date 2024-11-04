@@ -192,7 +192,7 @@ view: users {
 
   dimension_group: since_created {
     type: duration
-    intervals: [month,day]
+    intervals: [hour, month,day]
     sql_start: ${created_date} ;;
     sql_end: current_date() ;;
   }
