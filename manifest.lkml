@@ -8,7 +8,7 @@ localization_settings: {
 }
 
 visualization: {
-  id: "custom_viz_1"
+  id: "nw_custom_viz_1"
   label: "Custom Viz 1"
   file: "bundle.js"
 }
