@@ -1,0 +1,1 @@
+looker.plugins.visualizations.add({create:function(e,n){},updateAsync:function(e,n,t,i,a,l){n.innerHTML="";var d=document.createElement("div");d.style.fontFamily="Arial, Helvetica, sans-serif",d.style.fontSize="14vw",d.style.textAlign="center",d.innerText=e[0][Object.keys(e[0])[0]].rendered,n.appendChild(d),n.appendChild(d),l()}});
