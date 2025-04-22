@@ -46,6 +46,18 @@ view: inventory_items {
     sql: ${sold_raw} is not null ;;
   }
 
+  dimension: test {
+    type: string
+    sql: ${days_in_inventory} ;;
+    html: {% if value < 10 %}
+      <a href="https://zendesk.lightning.force.com/lightning/r/task/{{ product_id }}/view" target="_blank"><span style="color: green;">&#x2714;</span></a> <!-- Hyperlinked Tick mark for 'Yes' -->
+    {% elsif value > 10 or value == "" or value == nil %}
+      <span style="color: red;">&#x2718;</span> <!-- Cross mark for 'No', blank, or null -->
+    {% else %}
+      {{ value | escape }} <!-- Escaping other values for XSS protection -->
+    {% endif %} ;;
+  }
+
   dimension: days_in_inventory {
     label: "Days in Inventory"
     description: "days between created and sold date"
@@ -78,6 +90,7 @@ view: inventory_items {
 
   dimension: product_distribution_center_id {
     label: "Product Distribution Center ID"
+    type: number
     hidden: yes
     sql: ${TABLE}.product_distribution_center_id ;;
   }
@@ -100,6 +113,12 @@ view: inventory_items {
     type: number
     value_format_name: percent_2
     sql: 1.0 * ${sold_count}/(CASE WHEN ${count} = 0 THEN NULL ELSE ${count} END) ;;
+  }
+
+  measure: sold_percent_0 {
+    type: number
+    sql: 1.0 * ${sold_count}/(CASE WHEN ${count} = 0 THEN NULL ELSE ${count} END) ;;
+    value_format_name: percent_0
   }
 
   measure: total_cost {
