@@ -22,8 +22,11 @@ view: products {
     drill_fields: [id]
   }
 
+
   dimension: brand {
     label: "Brand"
+    suggest_persist_for: "5 seconds"
+    bypass_suggest_restrictions: yes
     sql: TRIM(${TABLE}.brand) ;;
     link: {
       label: "Website"
