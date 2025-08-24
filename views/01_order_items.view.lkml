@@ -3,6 +3,18 @@ view: order_items {
   view_label: "Order Items"
   ########## IDs, Foreign Keys, Counts ###########
 
+  parameter: metric_picker {
+    type: unquoted
+    allowed_value: {
+      label: "With All Metrics"
+      value: "everything"
+    }
+    allowed_value: {
+      label: "Remove One Metric"
+      value: "not_everything"
+    }
+  }
+
   dimension: id {
     label: "ID"
     primary_key: yes
@@ -420,6 +432,26 @@ view: order_items {
     drill_fields: [products.brand, order_count, count_with_repeat_purchase_within_30d]
   }
 
+  measure: dynamic_metric_picker_measure_1 {
+    type: number
+    sql:
+      {% if metric_picker._parameter_value == "everything" %}
+        ${count}
+      {% else %}
+        ${count} - ${returned_count}
+      {% endif %} ;;
+  }
+
+  measure: dynamic_metric_picker_measure_2 {
+    type: number
+    sql:
+      {% if metric_picker._parameter_value == "everything" %}
+        ${returned_count}
+      {% else %}
+        NULL
+      {% endif %}
+      ;;
+  }
 ########## Dynamic Sales Cohort App ##########
 
 #   filter: cohort_by {
