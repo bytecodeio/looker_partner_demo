@@ -1,5 +1,6 @@
 view: users {
-  sql_table_name: looker-private-demo.ecomm.users ;;
+  sql_table_name: looker-partners.thelook.users ;;
+  # sql_table_name: looker-private-demo.ecomm.users ;;
   view_label: "Users"
   ## Demographics ##
 
@@ -26,7 +27,10 @@ view: users {
 
   dimension: name {
     label: "Name"
+    suggest_persist_for: "5 seconds"
+    bypass_suggest_restrictions: yes
     sql: concat(${first_name}, ' ', ${last_name}) ;;
+
   }
 
   dimension: age {
@@ -49,9 +53,26 @@ view: users {
     sql: ${age} ;;
   }
 
+  parameter: age_tier_parameter {
+    type: unquoted
+    allowed_value: {
+      label: "15"
+      value: "15"
+    }
+    allowed_value: {
+      label: "25"
+      value: "25"
+    }
+    allowed_value: {
+      label: "35"
+      value: "35"
+    }
+    default_value: "15"
+  }
+
   dimension: gender {
     label: "Gender"
-    sql: ${TABLE}.gender ;;
+    sql: CASE WHEN ${TABLE}.gender = 'F' THEN 'Female' ELSE 'Male' END;;
   }
 
   dimension: gender_short {
