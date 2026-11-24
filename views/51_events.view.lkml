@@ -106,6 +106,12 @@ view: events {
        ;;
   }
 
+  measure: mag {
+    type: number
+    sql: CASE WHEN ${event_type} = 'Brand' THEN 1 ELSE 0 END  ;;
+    required_fields: [event_type]
+  }
+
   measure: unique_visitors {
     label: "Unique Visitors"
     type: count_distinct
